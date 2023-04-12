@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>popNugull</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<style>
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard-Regular';
+}
+body, html{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+.page_title{
+    font-size: 3.5rem;
+    text-align: center;
+    margin-top: 42px;
+}
+
+.rosts_ew{
+    margin-top: 24px;
+    text-align: center;
+}
+
+.thisisCat{
+    display: block;
+    width: 700px;
+    margin: auto;
+    cursor: pointer;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none
+}
+
+.AllCnt{
+    font-size: 2.5rem;
+    text-align: center;
+}
+.detail_cnt_box::-webkit-scrollbar{
+    display: none;
+}
+.detail_cnt_box{
+    width: 500px;
+    height: 400px;
+    overflow-y: scroll;
+    margin: auto;
+    position: absolute;
+
+    background-color: white;
+    z-index: 9999;
+    padding-right: 32px;
+    padding-left: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50px);
+    border-top-right-radius : 12px;
+    border-top-left-radius : 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    transition: all 0.4s ease-in-out;
+
+}
+
+.detail_cnt_line{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    text-align: center;
+    padding-bottom: 16px;
+}
+.upper_button{
+    text-align: center;
+    color: #888;
+    padding-top: 16px;
+    cursor: pointer;
+    padding-bottom: 12px;
+}
+
+@media (max-width : 700px) {
+    .thisisCat{
+        display: block;
+        width: 100%;
+    }
+
+}
+
+@media (max-width : 580px) {
+    .detail_cnt_box{
+        width: 100%;
+
+
+    }
+
+}
+
+
+@keyframes skew-y-shakeing{
+    0% { transform: skewY(-7deg); }
+    5% { transform: skewY(7deg); }
+    10% { transform: skewY(-7deg); }
+    15% { transform: skewY(7deg); }
+    20% { transform: skewY(-7deg); }
+    25% { transform: skewY(7deg); }
+    30% { transform: skewY(-7deg); }
+    35% { transform: skewY(7deg); }
+    40% { transform: skewY(-7deg); }
+    45% { transform: skewY(7deg); }
+    50% { transform: skewY(-7deg); }
+    55% { transform: skewY(7deg); }
+    60% { transform: skewY(-7deg); }
+    65% { transform: skewY(7deg); }
+    70% { transform: skewY(-7deg); }
+    75% { transform: skewY(7deg); }
+    80% { transform: skewY(-7deg); }
+    85% { transform: skewY(7deg); }
+    90% { transform: skewY(-7deg); }
+    95% { transform: skewY(7deg); }
+    100% { transform: skewY(-7deg); }
+
+   }
+
+   .thisisCat:active{
+    animation: skew-y-shakeing 1s  ease infinite;
+   }
+
+
+    .hidden{
+        width : 0px;
+        height : 0px;
+        border : none;
+        outline : none;
+        overflow : hidden;
+        position : absolute;
+        top : 0;
+        z-index : 0;
+    }
+   .detail_cnt_lank{
+    width: 50px;
+    height: 45px;
+    text-align: center;
+    line-height: 45px;
+   }
+
+   #detail_cnt_lank_1{
+
+    background-color: #FFD700;
+    color: white;
+    border-radius: 100px;
+   }
+
+   #detail_cnt_lank_2{
+
+    background-color: #C0C0C0;
+    color: white;
+    border-radius: 100px;
+   }
+   #detail_cnt_lank_3{
+
+    background-color: #CD7F32;
+    color: white;
+    border-radius: 100px;
+   }
+
+   .detail_cnt_ip{
+    width : 300px;
+    text-align : center;
+   }
+
+   .detail_cnt_lank{
+        width : 50px;
+   }
+
+   .detail_cnt_cnt{
+        width : 200px;
+   }
+
+</style>
+<script>
+let TimeInterVal;
+window.onload = function(){
+
+        for(let i  = 0; i < document.querySelectorAll(".detail_cnt_lank").length; i++){
+            document.querySelectorAll(".detail_cnt_lank")[i].innerHTML = i + 1;
+            if(i <= 2){
+                document.querySelectorAll(".detail_cnt_lank")[i].setAttribute("id", "detail_cnt_lank_" + (i+1))
+            }
+        }
+        document.querySelector("#Cnt_ssds").value = document.querySelector(".Ip").innerHTML;
+        document.querySelector("#Cnt_Db_Insert").value = document.querySelector(".AllCnt").innerHTML;
+    TimeInterVal = setInterval(()=>{
+
+        document.querySelector("#Cnt_ssds").value = document.querySelector(".Ip").innerHTML;
+        document.getElementById("form_dwa").submit();
+
+    }, 10000)
+}
+    function upper(){
+    let detail_cnt_box = document.querySelector(".detail_cnt_box");
+    detail_cnt_box.style.transform = "translateX(-50%) translateY(-320px)"
+
+    document.querySelector(".upper_button").innerHTML = "<i class='fa-solid fa-chevron-down'></i>";
+    document.querySelector(".upper_button").setAttribute("onclick", "downer()")
+}
+
+function downer() {
+    let detail_cnt_box = document.querySelector(".detail_cnt_box");
+    detail_cnt_box.style.transform = "translateX(-50%) translateY(-50px)"
+    document.querySelector(".upper_button").innerHTML = "<i class='fa-solid fa-chevron-up'></i>";
+    document.querySelector(".upper_button").setAttribute("onclick", "upper()")
+}
+
+function changeImage(){
+
+    document.querySelector(".AllCnt").innerHTML = parseInt(document.querySelector(".AllCnt").innerHTML) + 1;
+
+    document.querySelector("#Cnt_Db_Insert").value = document.querySelector(".AllCnt").innerHTML;
+    document.querySelector(".thisisCat").setAttribute("src", "image/open.png");
+    document.querySelector(".thisisCat").style.animation = "skew-y-shakeing 1s  ease infinite";
+}
+function changeImageRever(){
+    document.querySelector(".thisisCat").setAttribute("src", "image/close.png");
+    document.querySelector(".thisisCat").style.animation = "";
+}
+
+</script>
+<body onkeydown="changeImage()" onkeyup="changeImageRever()">
+<div class="page_title">POPNUGULL</div>
+<div class="rosts_ew"><span>Your IP : </span><span class="Ip" th:text="${userip}"></span></div>
+<form action="/post" method="post" id="form_dwa">
+
+    <input type="text" name="ip" id="Cnt_ssds" class="hidden">
+    <input type="text" name="value" id="Cnt_Db_Insert" class="hidden">
+</form>
+<div class="AllCnt" th:text="${value}">0</div>
+
+<img class="thisisCat" src="image/close.png" title="I'm not cat, I'm rakun!!!!!!" onmousedown="changeImage()" onmouseup="changeImageRever()" >
+
+
+<div class="detail_cnt_box">
+    <div class="upper_button" onclick="upper()"><i class="fa-solid fa-chevron-up"></i></div>
+    <div class="detail_cnt_line" th:each="nugull, i : ${rank}">
+        <div class="detail_cnt_lank" ></div>
+        <div class="detail_cnt_ip" th:text="${nugull.userIP}">787.578.278.758</div>
+        <div class="detail_cnt_cnt" th:text="${nugull.userCnt}">4654516514641651</div>
+    </div>
+
+</div>
+
+</body>
+</html>
